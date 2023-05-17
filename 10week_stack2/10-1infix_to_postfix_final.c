@@ -61,7 +61,7 @@ void convert(char *str)
 		else if (prec(str[i]) > 0)
 		{
 			if (str[i] == '+' || str[i] == '-')
-				if (i == 0 || (prec(str[i - 1]) != 0 && prec(str[i - 1]) != ')'))
+				if (i == 0 || (prec(str[i - 1]) != 0))
 					str[i] = (str[i] == '+') ? 'p' : 'm';
 			while (!isEmpty(stack) && prec(str[i]) <= prec(stack[top]))
 				printf("%c", pop(stack));
