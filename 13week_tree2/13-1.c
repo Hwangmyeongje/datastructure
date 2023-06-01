@@ -1,14 +1,15 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#pragma warning (disable:4996)
 
 typedef struct TreeNode {
     int id;
     int data;
     struct TreeNode* left, * right;
 }TreeNode;
+
 TreeNode* makeNode(int id, int size, TreeNode* left, TreeNode* right) {
     TreeNode* node = (TreeNode*)malloc(sizeof(TreeNode));
     node->id = id;
@@ -67,7 +68,7 @@ void print(TreeNode* root, int order) {
     if (order == 2)
         inOrder(root);
     if (order == 3)
-        preOrder(root);
+        postOrder(root);
 
 }
 int main() {
