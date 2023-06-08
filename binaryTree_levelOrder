@@ -1,0 +1,85 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef int element;
+typedef struct TreeNode
+{
+    element data;
+    struct TreeNode *left,*right;
+}TreeNode;
+
+TreeNode *makeNode(element data)
+{
+    TreeNode *Node = (TreeNode *)malloc(sizeof(TreeNode));
+    Node -> data = data;
+    Node->left =Node->right =NULL;
+    return Node;
+}
+
+TreeNode *insertNode(TreeNode * root, element data)
+{
+    if(root == NULL)
+        return makeNode(data);
+    if(data < root->data)
+        root->left = insertNode(root->left,data);
+    else if(data > root ->data)
+        root->right = insertNode(root->right,data);
+    //현재 서브트리의 루트노드를 반환
+    return root;
+}
+
+void preOrder(TreeNode * root)
+{
+    if(root)
+    {
+        printf(" %d",root->data);
+        preOrder(root->left);
+        preOrder(root->right);
+
+    }
+}
+
+void levelOrder(TreeNode * root)
+{
+    if(root == NULL)
+        return;
+    TreeNode * queue[100];
+    int front = 0;
+    int rear = 0;
+    queue[rear++] = root;
+    while(front < rear)
+    {
+        TreeNode * node = queue[front++];
+        printf("%d ",node->data);
+        if(node->left)
+            queue[rear++] = node->left;
+        if(node->right)
+            queue[rear++] = node->right;
+    }
+}
+
+int main(void)
+{
+    int a[]={1,2,3,4,5,6,7,8,9,10};
+    TreeNode * root = NULL;
+    root = insertNode(root,5); root = insertNode(root,2);
+    root = insertNode(root,1); root = insertNode(root,3); 
+    root = insertNode(root,4); root = insertNode(root,8); 
+    root = insertNode(root,6); root = insertNode(root,9); 
+    root = insertNode(root,7); root = insertNode(root,10); 
+
+    // int n = sizeof(a) / sizeof(a[0]);
+    // int middle = n/2 -1;
+    // root = insertNode(root,a[middle]);
+    // //왼쪽 부분 삽입
+    // for(int i =middle -1; i>=0;i--)
+    //     root = insertNode(root,a[i]);
+    // for(int i= middle+1;i<n;i++)
+    //     root = insertNode(root,a[i]);
+    printf("preOrder\n");
+    preOrder(root);
+    printf("\n");
+    printf("levelOrder\n");
+    levelOrder(root);
+    return 0;
+}
